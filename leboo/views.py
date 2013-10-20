@@ -2,7 +2,7 @@
 
 from django import forms
 from django.http import HttpResponseRedirect
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
 from django.template.context import RequestContext
 
 from models import UserLents, UserBorrows, Transactions
@@ -12,6 +12,13 @@ from django.db.transaction import Transaction
 class LentForm(forms.Form):
     item = forms.CharField(max_length=100)
     quantity = forms.IntegerField();
+    date_given = forms.DateField(required = False);
+    date_return = forms.DateField(required = False);
+
+class NewLentForm():
+    item = forms.CharField(max_length=100)
+    quantity = forms.IntegerField();
+    to_whom = forms.CharField(max_length = 100)
     date_given = forms.DateField(required = False);
     date_return = forms.DateField(required = False);
 
@@ -34,6 +41,7 @@ def getLentFields():
 
 
 def index(request):
+    print "Hey satish"
     lentform = LentForm()
     lentFields = getLentFields();
     history = Transactions.objects.all()
@@ -43,7 +51,8 @@ def index(request):
 def lentitem(request):
     #return render_to_response('leboo/index.html')
     if request.method == 'POST': # If the form has been submitted...
-        row = Transactions(item = request.POST['lentitem'], user_id = 100, date_lent = request.POST['lentdategiven'],
+        #lentform = NewLentForm(request.POST)
+        row = Transactions(item = request.POST['lentitem'], user_id = 100, date_init = request.POST['lentdategiven'],
                            date_due = request.POST['lentdatereturn'], lent_borrowed_flag = True,
                            quantity = request.POST['lentquantity'], status = False, person = request.POST['lentperson'])
         #UserLents(item = request.POST['lentitem'], user_id = 100, date_lent = request.POST['lentdategiven'])
