@@ -1,0 +1,26 @@
+{% load static %} {% get_static_prefix as STATIC_PREFIX %}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>LeBoo</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css"
+	href="{{ STATIC_PREFIX }}style.css" />
+</head>
+<body>
+	<div id="container">
+		<ul>
+			<li><a href="#">Home</a></li>
+			<li><a href="#">Products</a></li>
+			<li><a href="#">I Lent</a></li>
+			<li><a href="#">I Borrowed</a></li>
+			<li><a style="background-image: none;" href="#">Contact</a></li>
+		</ul>
+
+		<div id="main">
+			<form action="/contact/" method="post">
+				{% csrf_token %} {{ form.as_p }} <input type="submit" value="Submit" />
+			</form>
+		</div>
+	</div>
+</html>

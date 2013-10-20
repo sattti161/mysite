@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<title>LeBoo</title>
+<link rel="stylesheet" type="text/css" href="/static/style.css" />
+<script type="text/javascript" src="/static/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="/static/js/jquery.leanModal.min.js"></script>
+<!-- jQuery plugin leanModal under MIT License http://leanmodal.finelysliced.com.au/ -->
+
+</head>
+
+<body>
+	<div id="topbar">
+		<a href="">LeBoo</a>
+	</div>
+	<div id="w">
+		<div id="content">
+			<h1>Welcome to the Site!</h1>
+			<ul>
+				<li><a href="#lentmodal" id="lentLink">I Lent</a></li>
+				<li><a href="#borrowedmodal" id="borrowLink">I Borrowed</a></li>
+				<li>
+					<form id="searchForm">
+						<span><input type="text" class="search square"
+							placeholder="Search..."> <input type="button"
+							id="searchButton" value="Search"></span>
+					</form>
+				<li>
+			</ul>
+
+
+			<p>
+			<div>
+				<table cellspacing='0'>
+					<tr>
+						<th>Person</th>
+						<th>Item</th>
+						<th>Quantity</th>
+						<th>Type</th>
+						<th>InitialDate</th>
+						<th>DueDate</th>
+						<th>Returned</th>
+					</tr>
+					{% for entry in history %} {% if forloop.counter|divisibleby:2 %}
+					<tr class='even'>{% else %}
+					<tr>
+						{% endif %}
+						<td>{{ entry.person }}</td>
+						<td>{{ entry.item }}</td>
+						<td>{{ entry.quantity }}</td>
+						<td> {% if entry.lent_borrowed_flag %} lent {% else %} borrowed {% endif %}</td>
+						<td>{{ entry.date_init }}</td>
+						<td>{{ entry.date_due }}</td>
+						<td>{{ entry.status }}</td>
+					</tr>
+					{% endfor %}
+
+				</table>
+			</div>
+			</p>
+
+
+
+			<center>
+				<a href="#loginmodal" class="flatbtn" id="modaltrigger">Modal
+					Login</a>
+			</center>
+
+		</div>
+	</div>
+
+	<div id="loginmodal" style="display: none;">
+		<h1>User Login</h1>
+		<form id="loginform" name="loginform" method="post"
+			action="index.html">
+			<label for="username">Username:</label> <input type="text"
+				name="username" id="username" class="txtfield" tabindex="1">
+
+			<label for="password">Password:</label> <input type="password"
+				name="password" id="password" class="txtfield" tabindex="2">
+
+			<div class="center">
+				<input type="submit" name="loginbtn" id="loginbtn"
+					class="flatbtn-blu hidemodal" value="Log In" tabindex="3">
+			</div>
+		</form>
+	</div>
+
+
+	<div id="lentmodal" style="display: none;">
+		<h1>Lent Item Details</h1>
+		<form id="lentform" name="lentform" action="leboo/lentitem" method="post">
+			<label for="lentitem">Item:</label> <input
+				type="text" name="lentitem" id="lentitem" class="txtfield"
+				tabindex="1"> <label for="lentquantity">Quantity:</label> <input
+				type="text" name="lentquantity" id="lentquantity" class="txtfield"
+				tabindex="2"> 
+				
+				<label for="lentperson">To Whom:</label>
+					<input type="text" name="lentperson" id="lentperson"
+				class="txtfield" tabindex="3">
+				
+				<label for="lentdategiven">Date Given:</label>
+			<input type="date" name="lentdategiven" id="lentdategiven"
+				class="txtfield" tabindex="4">
+				
+				
+				 <label for="lentdatereturn">Date
+				Return:</label> <input type="date" name="lentdatereturn" id="lentdatereturn"
+				class="txtfield" tabindex="5">
+
+			<div class="center">
+				<input type="submit" name="lentSubmit" id="lentSubmit"
+					class="flatbtn-blu hidemodal" value="Update" tabindex="6">
+		</form>
+	</div>
+
+
+
+	<div id="borrowedmodal" style="display: none;">
+		<h1>Borrowed Item Details</h1>
+		<form id="borrowedform" name="borrowedform" action="index"
+			method="post">
+			{% csrf_token %} <label for="borroweditem">Item:</label> <input
+				type="text" name="borroweditem" id="borroweditem" class="txtfield"
+				tabindex="1"> <label for="borrowedquantity">Quantity:</label>
+			<input type="text" name="borrowedquantity" id="borrowedquantity"
+				class="txtfield" tabindex="2">
+				
+				<label for="borrowedperson">From Whom:</label>
+					<input type="text" name="borrowedperson" id="borrowedperson"
+				class="txtfield" tabindex="3">
+				
+				 <label
+				for="borroweddategiven">Date Borrowed:</label> <input type="date"
+				name="borroweddategiven" id="borroweddategiven" class="txtfield"
+				tabindex="4"> <label for="borroweddatereturn">Date
+				Return:</label> <input type="date" name="borroweddatereturn"
+				id="borroweddatereturn" class="txtfield" tabindex="5">
+
+			<div class="center">
+				<input type="submit" name="borrowedSubmit" id="borrowedSubmit"
+					class="flatbtn-blu hidemodal" value="Update" tabindex="6">
+		</form>
+	</div>
+
+	<script type="text/javascript">
+	jQuery(document).ready($(function() {
+			$('#loginform').submit(function(e) {
+				return false;
+			});
+			
+			$('#lentform').submit(function(e) {
+				return false;
+			});
+			
+			$('#borrowedform').submit(function(e) {
+				return false;
+			});
+
+			$('#modaltrigger').leanModal({
+				top : 110,
+				overlay : 0.45,
+				closeButton : ".hidemodal"
+			});
+
+			$('#lentLink').leanModal({
+				top : 110,
+				overlay : 0.45,
+				closeButton : ".hidemodal"
+			});
+
+			$('#borrowLink').leanModal({
+				top : 110,
+				overlay : 0.45,
+				closeButton : ".hidemodal"
+			});
+		}));
+	</script>
+</body>
+</html>
