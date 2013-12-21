@@ -67,14 +67,13 @@ table { border-collapse: collapse; border-spacing: 0; }
 img { border: 0; max-width: 100%; }
 
 #topbar {
-  background: #4f4a41;
+  background: #ADD8E6;
   padding: 10px 0 10px 0;
-  text-align: center;
 }
 
 #topbar a {
   color: #fff;
-  font-size:1.3em;
+  font-size:1.8em;
   line-height: 1.25em;
   text-decoration: none;
   opacity: 0.5;

@@ -12,24 +12,57 @@
 </head>
 
 <body>
-	<div id="topbar">
-		<a href="">LeBoo</a>
+	<div id='cssmenu'>
+		<ul>
+			<li class='active'><a href='index.html'><span>Home</span></a></li>
+			<li class='has-sub'><a href='#'><span>Products</span></a>
+				<ul>
+					<li><a href='#'><span>Widgets</span></a></li>
+					<li><a href='#'><span>Menus</span></a></li>
+					<li class='last'><a href='#'><span>Products</span></a></li>
+				</ul></li>
+			<li class='has-sub'><a href='#'><span>Company</span></a>
+				<ul>
+					<li><a href='#'><span>About</span></a></li>
+					<li class='last'><a href='#'><span>Location</span></a></li>
+				</ul></li>
+			<li class='last'><a href='#'><span>Contact</span></a></li>
+			<li id='account'><a href='#'><span>lakavathsatish@gmail.com</span></a>
+				<ul>
+					<li><a href='#'><span>Change Password</span></a></li>
+					<li class='last'><a href='#'><span>Logout</span></a></li>
+				</ul></li>
+		</ul>
 	</div>
+
+
 	<div id="w">
 		<div id="content">
-			<h1>Welcome to the Site!</h1>
-			<ul>
+			<!-- <h1>Welcome to the Site!</h1> -->
+			<ul id="ul">
 				<li><a href="#lentmodal" id="lentLink">I Lent</a></li>
 				<li><a href="#borrowedmodal" id="borrowLink">I Borrowed</a></li>
 				<li>
-					<form id="searchForm">
-						<span><input type="text" class="search square"
+					<form id="searchForm" action="search" method="post">
+						{% csrf_token %}<span><input type="text" name="searchText" id="searchText" class="search square"
 							placeholder="Search..."> <input type="button"
 							id="searchButton" value="Search"></span>
 					</form>
 				<li>
 			</ul>
-
+	
+			<!--<ul id="ul">
+			<form id="dateRangeSearch" action="datesearch" method="post">
+				{% csrf_token %}<span> 
+				<li><label for="startDate">Start Date:</label> 
+				<input type="date" name="startDate" id="startDate"
+					class="txtfield"> </li><li><label for="endDate">End Date:
+						</label> <input type="date" name="endDate" id="endDate"
+					class="txtfield"></li> <li>
+				<input type="submit" name="dateRangeSearchButton" id="dateRangeSearchButton"
+					class="flatbtn-blu hidemodal" value="Submit"> </li>
+			</form>
+			</ul>-->
 
 			<p>
 			<div>
@@ -50,7 +83,8 @@
 						<td>{{ entry.person }}</td>
 						<td>{{ entry.item }}</td>
 						<td>{{ entry.quantity }}</td>
-						<td> {% if entry.lent_borrowed_flag %} lent {% else %} borrowed {% endif %}</td>
+						<td>{% if entry.lent_borrowed_flag %} lent {% else %}
+							borrowed {% endif %}</td>
 						<td>{{ entry.date_init }}</td>
 						<td>{{ entry.date_due }}</td>
 						<td>{{ entry.status }}</td>
@@ -63,10 +97,10 @@
 
 
 
-			<center>
+			<!-- <center>
 				<a href="#loginmodal" class="flatbtn" id="modaltrigger">Modal
 					Login</a>
-			</center>
+			</center> -->
 
 		</div>
 	</div>
@@ -96,44 +130,33 @@
 				type="text" name="lentitem" id="lentitem" class="txtfield"
 				tabindex="1"> <label for="lentquantity">Quantity:</label> <input
 				type="text" name="lentquantity" id="lentquantity" class="txtfield"
-				tabindex="2"> 
-				
-				<label for="lentperson">To Whom:</label>
-					<input type="text" name="lentperson" id="lentperson"
-				class="txtfield" tabindex="3">
-				
-				<label for="lentdategiven">Date Given:</label>
+				tabindex="2"> <label for="lentperson">To Whom:</label> <input
+				type="text" name="lentperson" id="lentperson" class="txtfield"
+				tabindex="3"> <label for="lentdategiven">Date Given:</label>
 			<input type="date" name="lentdategiven" id="lentdategiven"
-				class="txtfield" tabindex="4">
-				
-				
-				 <label for="lentdatereturn">Date
+				class="txtfield" tabindex="4"> <label for="lentdatereturn">Date
 				Return:</label> <input type="date" name="lentdatereturn" id="lentdatereturn"
 				class="txtfield" tabindex="5">
 
 			<div class="center">
 				<input type="submit" name="lentSubmit" id="lentSubmit"
 					class="flatbtn-blu hidemodal" value="Update" tabindex="6">
-		</form>
-	</div>
+	</div>		</form>
 
+    </div>
 
 
 	<div id="borrowedmodal" style="display: none;">
 		<h1>Borrowed Item Details</h1>
-		<form id="borrowedform" name="borrowedform" action="index"
+		<form id="borrowedform" name="borrowedform" action="borroweditem"
 			method="post">
 			{% csrf_token %} <label for="borroweditem">Item:</label> <input
 				type="text" name="borroweditem" id="borroweditem" class="txtfield"
 				tabindex="1"> <label for="borrowedquantity">Quantity:</label>
 			<input type="text" name="borrowedquantity" id="borrowedquantity"
-				class="txtfield" tabindex="2">
-				
-				<label for="borrowedperson">From Whom:</label>
-					<input type="text" name="borrowedperson" id="borrowedperson"
-				class="txtfield" tabindex="3">
-				
-				 <label
+				class="txtfield" tabindex="2"> <label for="borrowedperson">From
+				Whom:</label> <input type="text" name="borrowedperson" id="borrowedperson"
+				class="txtfield" tabindex="3"> <label
 				for="borroweddategiven">Date Borrowed:</label> <input type="date"
 				name="borroweddategiven" id="borroweddategiven" class="txtfield"
 				tabindex="4"> <label for="borroweddatereturn">Date
@@ -147,11 +170,10 @@
 	</div>
 
 	<script type="text/javascript">
-	jQuery(document).ready($(function() {
+		jQuery(document).ready($(function() {
 			$('#loginform').submit(function(e) {
 				return false;
 			});
-			
 
 			$('#modaltrigger').leanModal({
 				top : 110,
@@ -170,6 +192,17 @@
 				overlay : 0.45,
 				closeButton : ".hidemodal"
 			});
+
+			$("#citydrop").hide();
+
+			$("#cityclick").mouseover(function() {
+				$("#citydrop").slideDown('slow');
+			});
+
+			$("#citydrop").mouseleave(function() {
+				$("#citydrop").slideUp('slow');
+			});
+
 		}));
 	</script>
 </body>

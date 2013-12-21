@@ -61,9 +61,39 @@ def lentitem(request):
     return render_to_response('leboo/index.html', {'history' : history},
                               context_instance=RequestContext(request))#, {'lentFields' : lentFields})
 
+def datesearch(request):
+    if request.method == 'POST':
+        #searchedText = request.POST['searchText']
+        history = Transactions.objects.filter(date_init__range = [request.POST['startDate'], request.POST['endDate']])
+        # person_contains=searchedText)
+        #, person__contains=searchedText)# person_contains=searchedTex
+         #= history1 | history2 #history1.union(history2);
+        #history = Transactions.objects.raw('SELECT * FROM leboo_transactions WHERE item like %s', [searchedText])
+        #history = Transactions.objects.raw("SELECT * FROM leboo_transactions")
+        return render_to_response('leboo/index.html', {'history' : history},
+                              context_instance=RequestContext(request))#, {'lentFields' : lentFields})
+        #return render_to_response('leboo/index.html', {'history' : history},
+        #                      context_instance=RequestContext(request))#, {'lentFields' : lentFields})
+
+def search(request):
+    #history = "";
+    if request.method == 'POST':
+        searchedText = request.POST['searchText']
+        history = Transactions.objects.filter(item__icontains=searchedText
+                                              ) | Transactions.objects.filter(person__icontains=searchedText)# person_contains=searchedText)
+        #, person__contains=searchedText)# person_contains=searchedTex
+         #= history1 | history2 #history1.union(history2);
+        #history = Transactions.objects.raw('SELECT * FROM leboo_transactions WHERE item like %s', [searchedText])
+        #history = Transactions.objects.raw("SELECT * FROM leboo_transactions")
+        return render_to_response('leboo/index.html', {'history' : history},
+                              context_instance=RequestContext(request))#, {'lentFields' : lentFields})
+        #return render_to_response('leboo/index.html', {'history' : history},
+        #                      context_instance=RequestContext(request))#, {'lentFields' : lentFields})
+    
+
 def borroweditem(request):
     if request.method == 'POST': # If the form has been submitted...
-        row = Transactions(item = request.POST['borroweditem'], user_id = 100, date_lent = request.POST['borroweddategiven'],
+        row = Transactions(item = request.POST['borroweditem'], user_id = 100, date_init = request.POST['borroweddategiven'],
                            date_due = request.POST['borroweddatereturn'], lent_borrowed_flag = False,
                            quantity = request.POST['borrowedquantity'], status = False, person = request.POST['borrowedperson'])
         #UserLents(item = request.POST['lentitem'], user_id = 100, date_lent = request.POST['lentdategiven'])

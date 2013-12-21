@@ -1,5 +1,5 @@
 /** resets **/
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
   margin: 0;
   padding: 0;
   border: 0;
@@ -46,8 +46,7 @@ body {
 
 br { display: block; line-height: 2.2em; } 
 
-article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }
-ol, ul { list-style: none; }
+
 
 input, textarea { 
   -webkit-font-smoothing: antialiased;
@@ -67,14 +66,13 @@ table { border-collapse: collapse; border-spacing: 0; }
 img { border: 0; max-width: 100%; }
 
 #topbar {
-  background: #4f4a41;
+  background: #ADD8E6;
   padding: 10px 0 10px 0;
   text-align: center;
 }
 
-#topbar a {
-  color: #fff;
-  font-size:1.3em;
+#topbar a {	
+  font-size:1.6em;
   line-height: 1.25em;
   text-decoration: none;
   opacity: 0.5;
@@ -83,6 +81,10 @@ img { border: 0; max-width: 100%; }
 
 #topbar a:hover {
   opacity: 1;
+}
+
+#logo {
+	padding-right: 600px; 
 }
 
 /** typography **/
@@ -144,7 +146,7 @@ p {
 #content {
   display: block;
   width: 100%;
-  padding: 25px 20px;
+  padding: 0px 20px;
   padding-bottom: 35px;
 }
 
@@ -320,7 +322,7 @@ p {
 }
 
 
-ul {
+#ul {
 list-style-type: none;
 background-image: url(navi_bg.png);
 height: 80px;
@@ -328,15 +330,15 @@ width: 863px;
 margin: auto;
 }
 
-li {
+#ul li {
 float: left;
 }
 
-ul a:hover {
+#ul a:hover {
 color: #ADD8E6;
 }
 
-ul a {
+#ul a {
 background-image: url(navi_bg_divider.png);
 background-repeat: no-repeat;
 background-position: right;
@@ -462,4 +464,116 @@ table tr:hover td{
 	background: #f2f2f2;
 	background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#f0f0f0));
 	background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);	
+}
+
+
+
+#cssmenu ul {
+  margin: 0;
+  padding: 7px 6px 0 400px;
+  background: #7d7d7d url(overlay.png) repeat-x 0 -110px;
+  line-height: 100%;
+  border-radius: 1em;
+  font: normal 0.5333333333333333em Arial, Helvetica, sans-serif;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  width: auto;
+}
+#cssmenu li {
+  margin: 0 5px;
+  padding: 0 0 8px;
+  float: left;
+  position: relative;
+  list-style: none;
+}
+#cssmenu a,
+#cssmenu a:link {
+  font-weight: bold;
+  font-size: 13px;
+  color: #e7e5e5;
+  text-decoration: none;
+  display: block;
+  padding: 8px 20px;
+  margin: 0;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+#cssmenu a:hover {
+  background: #000;
+  color: #fff;
+}
+#cssmenu .active a,
+#cssmenu li:hover > a {
+  background: #979797 url(images/overlay.png) repeat-x 0 -40px;
+  background: #666666 url(images/overlay.png) repeat-x 0 -40px;
+  color: #444;
+  border-top: solid 1px  #f8f8f8;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 1px 0 #ffffff;
+}
+#cssmenu ul ul li:hover a,
+#cssmenu li:hover li a {
+  background: none;
+  border: none;
+  color: #666;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+}
+#cssmenu ul ul a:hover {
+  background: #7d7d7d url(images/overlay.png) repeat-x 0 -100px !important;
+  color: #fff !important;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+#cssmenu li:hover > ul {
+  display: block;
+}
+#cssmenu ul ul {
+  display: none;
+  margin: 0;
+  padding: 0;
+  width: 185px;
+  position: absolute;
+  top: 40px;
+  left: 0;
+  background: url(images/overlay.png) repeat-x 0 0;
+  border: solid 1px #b4b4b4;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+#cssmenu ul ul li {
+  float: none;
+  margin: 0;
+  padding: 3px;
+}
+#cssmenu ul ul a,
+#cssmenu ul ul a:link {
+  font-weight: normal;
+  font-size: 12px;
+}
+#cssmenu ul:after {
+  content: '.';
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+}
+
+
+#account {
+	padding-left: 900px
 }
