@@ -44,13 +44,13 @@
 				<li><a href="#borrowedmodal" id="borrowLink">I Borrowed</a></li>
 				<li>
 					<form id="searchForm" action="search" method="post">
-						{% csrf_token %}<span><input type="text" name="searchText" id="searchText" class="search square"
-							placeholder="Search..."> <input type="button"
-							id="searchButton" value="Search"></span>
+						{% csrf_token %}<span><input type="text" name="searchText"
+							id="searchText" class="search square" placeholder="Search...">
+							<input type="button" id="searchButton" value="Search"></span>
 					</form>
 				<li>
 			</ul>
-	
+
 			<!--<ul id="ul">
 			<form id="dateRangeSearch" action="datesearch" method="post">
 				{% csrf_token %}<span> 
@@ -65,15 +65,15 @@
 			</ul>-->
 
 			<p>
-			<div>
+			<div id="tcontents">
 				<table cellspacing='0'>
 					<tr>
 						<th>Person</th>
 						<th>Item</th>
 						<th>Quantity</th>
 						<th>Type</th>
-						<th>InitialDate</th>
-						<th>DueDate</th>
+						<th>Initial Date</th>
+						<th>Due Date</th>
 						<th>Returned</th>
 					</tr>
 					{% for entry in history %} {% if forloop.counter|divisibleby:2 %}
@@ -141,9 +141,10 @@
 			<div class="center">
 				<input type="submit" name="lentSubmit" id="lentSubmit"
 					class="flatbtn-blu hidemodal" value="Update" tabindex="6">
-	</div>		</form>
+			</div>
+		</form>
 
-    </div>
+	</div>
 
 
 	<div id="borrowedmodal" style="display: none;">
