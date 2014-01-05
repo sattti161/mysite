@@ -359,10 +359,19 @@ color: #371C1C;
 }
 
 #searchForm {
-	padding-left: 200px;
+	padding-left: 100px;
 	padding-top: 27px;
 }
 
+
+#filter {
+	padding-top: 24px;
+	padding-left: 30px;
+}
+
+#filter select {
+	font-size: 19px;
+}
 
 /*
 Table Style - This is what you want

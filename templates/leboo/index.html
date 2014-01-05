@@ -42,6 +42,13 @@
 			<ul id="ul">
 				<li><a href="#lentmodal" id="lentLink">I Lent</a></li>
 				<li><a href="#borrowedmodal" id="borrowLink">I Borrowed</a></li>
+				<li id="filter"><select id="selectFilter" onchange="filter()">
+						<option value="volvo">All Items</option>
+						<option value="saab">Borrowed Items</option>
+						<option value="opel">Lent Items</option>
+						<option value="audi">Pending Items</option>
+						<option value="audi">Returned Items</option>
+				</select></li>
 				<li>
 					<form id="searchForm" action="search" method="post">
 						{% csrf_token %}<span><input type="text" name="searchText"
@@ -66,7 +73,7 @@
 
 			<p>
 			<div id="tcontents">
-				<table cellspacing='0'>
+				<table cellspacing='0' id="myTable">
 					<tr>
 						<th>Person</th>
 						<th>Item</th>
@@ -83,8 +90,7 @@
 						<td>{{ entry.person }}</td>
 						<td>{{ entry.item }}</td>
 						<td>{{ entry.quantity }}</td>
-						<td>{% if entry.lent_borrowed_flag %} lent {% else %}
-							borrowed {% endif %}</td>
+						<td>{% if entry.lent_borrowed_flag %}lent{% else %}borrowed{% endif %}</td>
 						<td>{{ entry.date_init }}</td>
 						<td>{{ entry.date_due }}</td>
 						<td>{{ entry.status }}</td>
@@ -205,6 +211,18 @@
 			});
 
 		}));
+
+		
+		function filter() {
+			var selVal = document.getElementById('filter').options[document.getElementById('filter').selectedIndex].value;
+			document.getElementById('myTable').style.display = "none";
+			/* var rowLen = tblObj.rows.length;
+			
+			for (var i = 0; i < rowLen; i++) {
+				tblObj.rows[i].style.display='block';
+			} */
+		} 
+		
 	</script>
 </body>
 </html>

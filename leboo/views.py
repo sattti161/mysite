@@ -47,6 +47,14 @@ def index(request):
     history = Transactions.objects.all()
     return render_to_response('leboo/index.html', {'history' : history},
                               context_instance=RequestContext(request))#, {'lentFields' : lentFields})
+    
+def alternative(request):
+    lentform = LentForm()
+    lentFields = getLentFields();
+    history = Transactions.objects.all()
+    return render_to_response('leboo/blank.html', {'history' : history},
+                              context_instance=RequestContext(request))#, {'lentFields' : lentFields})
+    #return render_to_response('leboo/blank.html')
 
 def lentitem(request):
     #return render_to_response('leboo/index.html')

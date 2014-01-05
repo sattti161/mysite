@@ -7,4 +7,5 @@ urlpatterns = patterns('leboo.views',
     url(r'^borroweditem', 'borroweditem'),
     url(r'^search', 'search'),
     url(r'^datesearch', 'datesearch'),
+    url(r'^alternative', 'alternative'),
 )
