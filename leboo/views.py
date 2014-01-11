@@ -56,6 +56,22 @@ def alternative(request):
                               context_instance=RequestContext(request))#, {'lentFields' : lentFields})
     #return render_to_response('leboo/blank.html')
 
+def alentitem(request):
+    if request.method == 'POST': # If the form has been submitted...
+        row = Transactions(item = request.POST['lentItem'], user_id = 100, date_init = request.POST['lentOn'],
+                           date_due = request.POST['lentDueOn'], lent_borrowed_flag = True,
+                           quantity = 100, status = True, person = request.POST['lentTo'])
+        row.save()
+    return HttpResponseRedirect('alternative')
+    
+def aborroweditem(request):
+    if request.method == 'POST': # If the form has been submitted...
+        row = Transactions(item = request.POST['borrowedItem'], user_id = 100, date_init = request.POST['borrowedOn'],
+                           date_due = request.POST['borrowedDueOn'], lent_borrowed_flag = False,
+                           quantity = 100, status = True, person = request.POST['borrowedFrom'])
+        row.save()
+    return HttpResponseRedirect('alternative')
+
 def lentitem(request):
     #return render_to_response('leboo/index.html')
     if request.method == 'POST': # If the form has been submitted...

@@ -1,3 +1,6 @@
+#homeButton {
+	padding-left: 70px;
+}
 
 #searchField {
 	padding-left: 100px;
@@ -13,4 +16,24 @@
 
 #historyTable {
 	width: 840px;
+}
+
+.prev-next-buttons {
+	padding-left: 850px;
+	padding-bottom: 30px;
+}
+
+#changePassWordModal .modal-dialog
+{
+  width: 300px;
+}
+
+#lentModal .modal-dialog
+{
+  width: 350px;
+}
+
+#borrowedModal .modal-dialog
+{
+  width: 350px;
 }
