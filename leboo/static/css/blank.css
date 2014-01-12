@@ -37,3 +37,11 @@
 {
   width: 350px;
 }
+
+#tblSearchCust_filter input {
+  background-color: red;
+}
+
+#container {
+	padding-bottom: 50px;	
+}

@@ -8,6 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
+<link rel="stylesheet" type="text/css" href="/static/css/jquery.dataTables.css" />
 <link rel="stylesheet" type="text/css" href="/static/css/blank.css" />
 <link rel="shortcut icon"
 	href="http://getbootstrap.com/docs-assets/ico/favicon.png">
@@ -48,7 +49,7 @@
 			</div>
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
-					<li class="active" id="homeButton"><a href="#">Home</a></li>
+					<li id="homeButton"><a href="#">Home</a></li>
 					<!-- <li><a
 						href="http://getbootstrap.com/examples/starter-template/#about">About</a></li>
 					<li><a
@@ -98,11 +99,12 @@
 
 
 		<div>
-			<div class="btn-group prev-next-buttons">
-				<button type="button" class="btn btn-default">Previous</button>
-				<button type="button" class="btn btn-default">Next</button>
-			</div>
+			<!-- <div class="btn-group prev-next-buttons">
+				<button type="button" class="btn btn-default prev-button">Previous</button>
+				<button type="button" class="btn btn-default next-button">Next</button>
+			</div> -->
 			<table class="table table-hover" id="historyTable" align="center">
+			<thead>
 				<tr>
 					<th>#</th>
 					<th>Person</th>
@@ -112,7 +114,7 @@
 					<th>Initial Date</th>
 					<th>Due Date</th>
 					<th>Returned</th>
-				</tr>
+				</tr></thead> <tbody>
 				{% for entry in history %}
 				<tr class="history-row">
 					<td>{{ forloop.counter }}</td>
@@ -126,11 +128,13 @@
 					<td>{{ entry.status }}</td>
 				</tr>
 				{% endfor %}
+				</tbody>
 			</table>
-			<div class="btn-group prev-next-buttons">
-				<button type="button" class="btn btn-default">Previous</button>
-				<button type="button" class="btn btn-default">Next</button>
-			</div>
+			<!-- <div class="btn-group prev-next-buttons">
+				<button type="button" class="btn btn-default prev-button">Previous</button>
+				<button type="button" class="btn btn-default next-button">Next</button>
+			</div> -->
+			<div> <br></br> <br></br></div>
 		</div>
 
 
@@ -292,7 +296,86 @@
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="/static/js/jquery-1.10.2.min.js"></script>
 	<script src="/static/js/bootstrap.min.js"></script>
+	<script src="/static/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript"> 
+	var oTable;	
+	$(document).ready(function() {
+			oTable = $('#historyTable').dataTable({
+				"sPaginationType": "full_numbers",
+				"iDisplayLength": 10,
+				"bFilter": true,
+				"asStripClasses": null,
+				"bJQueryUI": false
+				
+				/* "sScrollY": "200px" */
+			});
+		}
+	);
+
+	$(document).ready(function() {
+		$('.dataTables_filter').hide();
+		document.getElementById("historyTable_length").style.paddingLeft="840px";
+		document.getElementById("historyTable_length").style.paddingBottom="30px";
+		document.getElementById("historyTable_info").style.paddingTop="30px";
+		document.getElementById("historyTable_info").style.paddingLeft="150px";
+		document.getElementById("historyTable_paginate").style.paddingTop="30px";
+		document.getElementById("historyTable_paginate").style.paddingRight="150px";
+	});
+	
+	/* $(".dataTables_length").css({
+		"padding:":"500px"
+		}); */
+	
+	
+	$('.prev-button').click(function() {
+		oTable.fnPageChange( 'previous' );
+	});
+	
+	$('.next-button').click(function() {
+		oTable.fnPageChange( 'next' );
+	});
+	
+	$('#search-criteria').keyup(function() {
+		oTable.fnFilter($('#search-criteria').val());
+		//oTable.fnPageChange( 'next' );
+/* 	    var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
+	        reg = RegExp(val, 'i'),
+	        text;
+
+	    $rows.show().filter(function() {
+	        text = $(this).text().replace(/\s+/g, ' ');
+	        return !reg.test(text);
+	    }).hide(); */
+	});
+	
+		$('#filter-dropdown').change(function(e) {
+			var text = $("#filter-dropdown :selected").text();
+			$("#historyTable .history-row").show();
+			if(text === "Borrowed Items") {
+				oTable.fnFilter("borrowed", 4);
+		    	/* var $rowsNo = $('#historyTable .history-row').filter(function () {
+		        	return !($.trim($(this).find('td').eq(4).text()) === "borrowed")
+		    	}).hide(); */
+			}
+			else if(text === "Lent Items") {
+				oTable.fnFilter("lent", 4);
+				/* var $rowsNo = $('#historyTable .history-row').filter(function () {
+		        	return !($.trim($(this).find('td').eq(4).text()) === "lent")
+		    	}).hide(); */
+			}
+			else if(text === "Pending Items") {
+		    	var $rowsNo = $('#historyTable .history-row').filter(function () {
+		        	return !($.trim($(this).find('td').eq(7).text()) === "False")
+		    	}).hide();
+			}
+			else if(text === "Returned Items") {
+		    	var $rowsNo = $('#historyTable .history-row').filter(function () {
+		        	return !($.trim($(this).find('td').eq(7).text()) === "True")
+		    	}).hide();
+			}
+		});
+	</script>
+<!-- 	<script type="text/javascript"> 
 	/* var $rows = $('#historyTable .history-row');
 	$('#search-criteria').keyup(function() {
 	    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
@@ -344,7 +427,7 @@
 	});
 	
 
-	</script>
+	</script> -->
 
 </body>
 </html>
