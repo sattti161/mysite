@@ -9,7 +9,14 @@ class Transactions(models.Model):
     date_init = models.DateTimeField() # when lent
     date_due = models.DateTimeField() # when lent 
     status = models.BooleanField() # pending the return or not
+
+
+class UserInfo(models.Model):
+    email_id = models.CharField(max_length = 200)
+    password = models.CharField(max_length = 200)
+    full_name = models.CharField(max_length = 200)
     
+'''    
 class UserEmail(models.Model):
     email_id = models.CharField(primary_key=True, max_length = 200)
     password = models.CharField(max_length = 200)
@@ -41,4 +48,4 @@ class Item(models.Model):
     item_id = models.CharField(primary_key=True, max_length = 200) # user_id + firstTime Update time stamp ----> Item
     item_name = models.CharField(max_length = 200)
     item_description = models.CharField(max_length = 500)
-    quantity = models.IntegerField()         
+    quantity = models.IntegerField()'''         

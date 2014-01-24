@@ -4,9 +4,11 @@ from django import forms
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, render
 from django.template.context import RequestContext
+from django.contrib.auth import authenticate, login
 
-from models import UserLents, UserBorrows, Transactions
+from models import Transactions, UserInfo
 from django.db.transaction import Transaction
+from django.core.context_processors import csrf
 
 
 class LentForm(forms.Form):
@@ -32,7 +34,7 @@ class Output():
 
 def generateOutput():
     output = []
-    lent_items = UserLents.objects.filter(user_id = 100, status = False)
+    #lent_items = UserLents.objects.filter(user_id = 100, status = False)
     
      
     
@@ -47,12 +49,32 @@ def index(request):
     history = Transactions.objects.all()
     return render_to_response('leboo/index.html', {'history' : history},
                               context_instance=RequestContext(request))#, {'lentFields' : lentFields})
-    
+
+def intro(request):
+    return render_to_response('leboo/IntroPage.html', context_instance=RequestContext(request))
+
+def register(request):
+    if request.method == 'POST': # If the form has been submitted...
+        row = UserInfo(email_id = request.POST['email'], password = request.POST['pwd'],
+                           full_name = request.POST['fullname'])
+        row.save()
+        email = request.POST['email'];
+    return HttpResponseRedirect('alternative')
+
+#email = "lakavathsatish@gmail.com"
+
+def login(request):
+    if request.method == 'POST': # If the form has been submitted...
+        user = UserInfo.objects.filter(email_id = request.POST['email'], password = request.POST['pwd'])
+        if (len(user) == 1):
+            return HttpResponseRedirect('alternative')
+        
+
 def alternative(request):
     lentform = LentForm()
     lentFields = getLentFields();
     history = Transactions.objects.all()
-    return render_to_response('leboo/blank.html', {'history' : history},
+    return render_to_response('leboo/blank.html', {'history' : history, 'email' : "satish"},
                               context_instance=RequestContext(request))#, {'lentFields' : lentFields})
     #return render_to_response('leboo/blank.html')
 
